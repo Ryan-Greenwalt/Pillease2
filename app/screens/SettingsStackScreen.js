@@ -14,7 +14,7 @@ const SettingsStack = createNativeStackNavigator();
 function SettingsStackScreen(props) {
     return (
         <SettingsStack.Navigator>
-            <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+            <SettingsStack.Screen name="Options" component={SettingsScreen} />
             <SettingsStack.Screen name="Visual Accessibility" component={VisualAccessibilityScreen} />
             <SettingsStack.Screen name="Audio Accessibility" component={AudioAccessibilityScreen} />
             <SettingsStack.Screen name="ASD Education" component={ASDEducationScreen} />
