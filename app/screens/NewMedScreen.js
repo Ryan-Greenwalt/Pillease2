@@ -2,7 +2,11 @@ import React from 'react';
 import { StyleSheet, Button, View, TextInput } from 'react-native';
 
 function NewMedScreen({ navigation }) {
-    const [medName, setMedName, dosageAmount, setDosageAmount, timeToTake, setTimeToTake, medAmount, setMedAmount] = React.useState('');
+    const [medName, setMedName] = React.useState('');
+    const [dosageAmount, setDosageAmount] = React.useState('');
+    const [timeToTake, setTimeToTake] = React.useState('');
+    const [medAmount, setMedAmount] = React.useState('');
+
 
     const handleConfirm = () => {
         navigation.navigate({
@@ -28,7 +32,7 @@ function NewMedScreen({ navigation }) {
             />
             <TextInput 
                 style={styles.timeInput}
-                placeholder="Time to take:"
+                placeholder="Time to Take"
                 value={timeToTake}
                 onChangeText={setTimeToTake}
             />
