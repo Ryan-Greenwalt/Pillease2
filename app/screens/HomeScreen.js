@@ -9,6 +9,9 @@ function HomeScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <Text>Medication name: {route.params?.medName}</Text>
+            <Text>Dosage: {route.params?.dosageAmount}</Text>
+            <Text>Take at: {route.params?.timeToTake}</Text>
+            <Text>Pills remaining: {route.params?.medAmount}</Text>
             <Button
                 title="New Med"
                 onPress={handleNewMed}
