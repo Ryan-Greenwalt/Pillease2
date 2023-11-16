@@ -7,6 +7,7 @@ function HomeScreen({ navigation, route }) {
 
     React.useEffect(() => {
         if(route.params?.medName) {
+            var medNumber = medications.length + 1;
             setMedications(
                 [
                     ...medications,
@@ -14,21 +15,27 @@ function HomeScreen({ navigation, route }) {
                         medName: route.params.medName,
                         dosageAmount: route.params.dosageAmount,
                         timeToTake: route.params.timeToTake,
-                        medAmount: route.params.medAmount
+                        medAmount: route.params.medAmount,
+                        medNumber: medNumber
                     }
                 ]
             );
         }
     }, [route.params?.medName]);
 
-    const handleNewMed= () => {
+    const handleNewMed = () => {
         navigation.navigate('New Med')
+    }
+
+    const handleDeleteMed = (medNumber) => {
+        const newMeds = medications.filter((medication) => medication.medNumber !== medNumber);
+        setMedications(newMeds);
     }
 
     return (
         <View style={styles.container}>
             {medications.map((medication, index) => (
-                <Medication medInfo={medication} medNumber={index + 1} key={index} />
+                <Medication medInfo={medication} key={index} onDelete={handleDeleteMed} />
             ))}
             <Button
                 title="New Med"
