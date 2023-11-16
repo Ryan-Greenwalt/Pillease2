@@ -1,6 +1,25 @@
+import React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
+import Medication from '../components/Medication';
 
 function HomeScreen({ navigation, route }) {
+    const [medications, setMedications] = React.useState([]);
+
+    React.useEffect(() => {
+        if(route.params?.medName) {
+            setMedications(
+                [
+                    ...medications,
+                    {
+                        medName: route.params.medName,
+                        dosageAmount: route.params.dosageAmount,
+                        timeToTake: route.params.timeToTake,
+                        medAmount: route.params.medAmount
+                    }
+                ]
+            );
+        }
+    }, [route.params?.medName]);
 
     const handleNewMed= () => {
         navigation.navigate('New Med')
@@ -8,10 +27,9 @@ function HomeScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Text>Medication name: {route.params?.medName}</Text>
-            <Text>Dosage: {route.params?.dosageAmount}</Text>
-            <Text>Take at: {route.params?.timeToTake}</Text>
-            <Text>Pills remaining: {route.params?.medAmount}</Text>
+            {medications.map((medication, index) => (
+                <Medication medInfo={medication} medNumber={index + 1} key={index} />
+            ))}
             <Button
                 title="New Med"
                 onPress={handleNewMed}
