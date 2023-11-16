@@ -22,6 +22,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStackScreen from './app/screens/HomeStackScreen';
 import SettingsStackScreen from './app/screens/SettingsStackScreen';
 import MoodLogStackScreen from './app/screens/MoodLogStackScreen';
+export { schedulePushNotification, registerForPushNotificationsAsync };
 
 // Create a Bottom Tab Navigator
 const NavBar = createBottomTabNavigator();
@@ -118,13 +119,16 @@ return (
 
 // Pushes notification after 2 seconds
 async function schedulePushNotification() {
+  // testing
+  console.log("Scheduling push notification");
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "New Med Incoming!",
       body: 'You have added a new medication',
       data: { data: 'goes here' },
     },
-    trigger: { seconds: 2 },
+    // set to 0 seconds for testing purposes
+    trigger: null,
   });
 }
 
@@ -150,6 +154,9 @@ async function registerForPushNotificationsAsync() {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
+
+    // testing
+    console.log("Notification Permissions Status:", finalStatus);
 
     // Alert for permissions not granted
     if (finalStatus !== 'granted') {
