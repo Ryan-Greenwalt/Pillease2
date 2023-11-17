@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Button, View, TextInput } from 'react-native';
+import { scheduleNotification } from '../components/NotificationButton';
 
 function NewMedScreen({ navigation }) {
     const [medName, setMedName] = React.useState('');
@@ -14,6 +15,7 @@ function NewMedScreen({ navigation }) {
             params: { medName: medName, dosageAmount: dosageAmount, timeToTake: timeToTake, medAmount: medAmount },
             merge: true
         })
+        scheduleNotification();
     }
 
     return (
