@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Button, View, Text, TextInput } from 'react-native';
 import { scheduleNotification } from '../components/NotificationButton';
+// npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
 
 function NewMedScreen({ navigation }) {
