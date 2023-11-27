@@ -14,8 +14,10 @@ function HomeScreen({ navigation, route }) {
                     {
                         medName: route.params.medName,
                         dosageAmount: route.params.dosageAmount,
-                        timeToTake: route.params.timeToTake,
                         medAmount: route.params.medAmount,
+                        hourToTake: route.params.hourToTake,
+                        minuteToTake: route.params.minuteToTake,
+                        amPm: route.params.amPm,
                         medNumber: medNumber
                     }
                 ]

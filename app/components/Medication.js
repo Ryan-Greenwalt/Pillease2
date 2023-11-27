@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-function Medication({medInfo: { medName, dosageAmount, timeToTake, medAmount, medNumber }, onDelete}) {
+function Medication({medInfo: { medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, medNumber }, onDelete}) {
     handleDeleteMed = () => {
         onDelete?.(medNumber);
     }
@@ -10,8 +10,8 @@ function Medication({medInfo: { medName, dosageAmount, timeToTake, medAmount, me
         <View style={styles.container}>
             <Text style={styles.title}>Medication name: {medName}</Text>
             <Text>Dosage: {dosageAmount}</Text>
-            <Text>Take at: {timeToTake}</Text>
             <Text>Pills remaining: {medAmount}</Text>
+            <Text>Take at: {hourToTake}:{minuteToTake} {amPm}</Text>
             <Button
                 title="Delete"
                 onPress={handleDeleteMed}
