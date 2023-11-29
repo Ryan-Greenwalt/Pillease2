@@ -18,6 +18,7 @@ function HomeScreen({ navigation, route }) {
                         hourToTake: route.params.hourToTake,
                         minuteToTake: route.params.minuteToTake,
                         amPm: route.params.amPm,
+                        days: route.params.days,
                         medNumber: medNumber
                     }
                 ]
