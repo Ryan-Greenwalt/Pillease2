@@ -1,14 +1,13 @@
 import React from 'react';
 import { StyleSheet, Button, View, Text, TextInput, Alert } from 'react-native';
-import { scheduleNotification } from '../components/NotificationButton';
 // npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
 
-function NewMedScreen({ navigation }) {
-    const [medName, setMedName] = React.useState('');
-    const [dosageAmount, setDosageAmount] = React.useState('');
-    const [medAmount, setMedAmount] = React.useState('');
-    const [hourToTake, setHourToTake] = React.useState('');
+function EditMedScreen({ navigation, route }) {
+    const [medName, setMedName] = React.useState(route.params.medName);
+    const [dosageAmount, setDosageAmount] = React.useState(route.params.dosageAmount);
+    const [medAmount, setMedAmount] = React.useState(route.params.medAmount);
+    const [hourToTake, setHourToTake] = React.useState(route.params.hourToTake);
     const [openHour, setOpenHour] = React.useState(false);
     const [hours, setHours] = React.useState([
         {label: '1', value: '1'},
@@ -24,7 +23,7 @@ function NewMedScreen({ navigation }) {
         {label: '11', value: '11'},
         {label: '12', value: '12'},
     ]);
-    const [minuteToTake, setMinuteToTake] = React.useState('');
+    const [minuteToTake, setMinuteToTake] = React.useState(route.params.minuteToTake);
     const [openMinute, setOpenMinute] = React.useState(false);
     const [minutes, setMinutes] = React.useState([
         {label: '00', value: '00'},
@@ -40,13 +39,13 @@ function NewMedScreen({ navigation }) {
         {label: '50', value: '50'},
         {label: '55', value: '55'},
     ]);
-    const [amPm, setAmPm] = React.useState('');
+    const [amPm, setAmPm] = React.useState(route.params.amPm);
     const [openAmPm, setOpenAmPm] = React.useState(false);
     const [amPmOptions, setAmPmOptions] = React.useState([
         {label: 'am', value: 'am'},
         {label: 'pm', value: 'pm'},
     ]);
-    const [days, setDays] = React.useState([]);
+    const [days, setDays] = React.useState(route.params.days);
     const [openDays, setOpenDays] = React.useState(false);
     const [daysOptions, setDaysOptions] = React.useState([
         {label: 'Sun', value: 'Sun'},
@@ -73,10 +72,9 @@ function NewMedScreen({ navigation }) {
         else {
             navigation.navigate({
                 name: 'Medications',
-                params: { edited: false, medName: medName, dosageAmount: dosageAmount, medAmount: medAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days },
+                params: { edited: true, medName: medName, dosageAmount: dosageAmount, medAmount: medAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: route.params.medNumber },
                 merge: true
             })
-            scheduleNotification();
         }   
     }
 
@@ -213,4 +211,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default NewMedScreen;
+export default EditMedScreen;

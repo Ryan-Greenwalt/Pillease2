@@ -13,26 +13,52 @@ function HomeScreen({ navigation, route }) {
   const [userName, setUserName] = useState('User');
   const [userPhoto, setUserPhoto] = useState(null);
 
+  // When the user creates a new medication, add its values to the medications array
   React.useEffect(() => {
-    if(route.params?.medName) {
-        var medNumber = medications.length + 1;
-        setMedications(
-            [
-                ...medications,
-                {
-                    medName: route.params.medName,
-                    dosageAmount: route.params.dosageAmount,
-                    medAmount: route.params.medAmount,
-                    hourToTake: route.params.hourToTake,
-                    minuteToTake: route.params.minuteToTake,
-                    amPm: route.params.amPm,
-                    days: route.params.days,
-                    medNumber: medNumber
-                }
-            ]
-        );
+    if(route.params?.medName && !route.params?.edited) {
+      var medNumber = medications.length + 1;
+      setMedications(
+          [
+              ...medications,
+              {
+                  medName: route.params.medName,
+                  dosageAmount: route.params.dosageAmount,
+                  medAmount: route.params.medAmount,
+                  hourToTake: route.params.hourToTake,
+                  minuteToTake: route.params.minuteToTake,
+                  amPm: route.params.amPm,
+                  days: route.params.days,
+                  medNumber: medNumber
+              }
+          ]
+      );
     }
-}, [route.params?.medName]);
+  }, [route.params?.medName]);
+
+  // When the user edits a medication, update it in the medications array
+  React.useEffect(() => {
+    if (route.params?.edited) {
+      const editedMeds = medications.map(medication => {
+        if (medication.medNumber === route.params.medNumber) {
+          return {
+            medName: route.params.medName,
+            dosageAmount: route.params.dosageAmount,
+            medAmount: route.params.medAmount,
+            hourToTake: route.params.hourToTake,
+            minuteToTake: route.params.minuteToTake,
+            amPm: route.params.amPm,
+            days: route.params.days,
+            medNumber: route.params.medNumber
+          }
+        }
+        else {
+          return medication;
+        }
+      });
+
+      setMedications(editedMeds);
+    }
+  }, [route.params?.edited]);
 
   const handleNewMed = () => {
     navigation.navigate('New Med');
@@ -42,6 +68,14 @@ function HomeScreen({ navigation, route }) {
     const newMeds = medications.filter((medication) => medication.medNumber !== medNumber);
     setMedications(newMeds);
   };
+
+  const handleEditMed = (medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, days, medNumber) => {
+    navigation.navigate({
+      name: 'Edit Med',
+      params: { medName: medName, dosageAmount: dosageAmount, medAmount: medAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: medNumber },
+      merge: true
+    })
+  }
 
   const handleUploadPhoto = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -83,12 +117,11 @@ function HomeScreen({ navigation, route }) {
         </View>
       </View>
       {medications.map((medication, index) => (
-        <Medication medInfo={medication} key={index} onDelete={handleDeleteMed} />
+        <Medication medInfo={medication} key={index} onDelete={handleDeleteMed} onEdit={handleEditMed} />
       ))}
       <Button title="New Med" onPress={handleNewMed} />
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({

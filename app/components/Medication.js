@@ -1,9 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-function Medication({medInfo: { medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete}) {
+function Medication({medInfo: { medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete, onEdit}) {
     handleDeleteMed = () => {
         onDelete?.(medNumber);
+    }
+
+    handleEditMed = () => {
+        onEdit?.(medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, days, medNumber)
     }
 
     return (
@@ -13,6 +17,10 @@ function Medication({medInfo: { medName, dosageAmount, medAmount, hourToTake, mi
             <Text>Supply: {medAmount}</Text>
             <Text>Take at: {hourToTake}:{minuteToTake} {amPm}</Text>
             <Text>{days.join(', ')}</Text>
+            <Button
+                title="Edit"
+                onPress={handleEditMed}
+            />
             <Button
                 title="Delete"
                 onPress={handleDeleteMed}
