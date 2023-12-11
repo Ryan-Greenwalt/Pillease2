@@ -79,41 +79,29 @@ function EditMedScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.inputLabel} >Medication Name:</Text>
+            <TextInput 
+                style={styles.inputField}
+                textAlign={'center'}
+                maxLength={20}
+                value={medName}
+                onChangeText={setMedName}
+            />
 
-            <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text>Medication Name:</Text>
-                </View>
-                <View style={styles.column}>
-                    <TextInput 
-                        style={styles.inputField}
-                        maxLength={20}
-                        value={medName}
-                        onChangeText={setMedName}
-                    />
-                </View>
-            </View>
-            
-            <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text>Dosage Amount:</Text>
-                </View>
-                <View style={styles.column}>
-                    <TextInput 
-                        style={styles.inputField}
-                        maxLength={20}
-                        value={dosageAmount}
-                        onChangeText={setDosageAmount}
-                    />
-                </View>
-            </View>
+            <Text style={styles.inputLabel} >Dosage Amount (ex: 1 pill):</Text>
+            <TextInput 
+                style={styles.inputField}
+                textAlign={'center'}
+                maxLength={20}
+                value={dosageAmount}
+                onChangeText={setDosageAmount}
+            />
 
+            <Text style={styles.inputLabel} >Time to Take:</Text>
             <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text>Time to Take:</Text>
-                </View>
                 <View style={styles.column}>
                     <DropDownPicker
+                        containerStyle={{marginBottom: openHour ? 100 : 15}}
                         open={openHour}
                         value={hourToTake}
                         items={hours}
@@ -121,10 +109,12 @@ function EditMedScreen({ navigation, route }) {
                         setValue={setHourToTake}
                         setItems={setHours}
                         placeholder={'Hour'}
+                        maxHeight={100}
                     />
                 </View>
                 <View style={styles.column}>
                     <DropDownPicker
+                        containerStyle={{marginBottom: openMinute ? 100 : 15}}
                         open={openMinute}
                         value={minuteToTake}
                         items={minutes}
@@ -132,40 +122,40 @@ function EditMedScreen({ navigation, route }) {
                         setValue={setMinuteToTake}
                         setItems={setMinutes}
                         placeholder={'Minute'}
+                        maxHeight={100}
                     />
                 </View>
                 <View style={styles.column}>
                     <DropDownPicker
+                        containerStyle={{marginBottom: openAmPm ? 100 : 15}}
                         open={openAmPm}
                         value={amPm}
                         items={amPmOptions}
                         setOpen={setOpenAmPm}
                         setValue={setAmPm}
                         setItems={setAmPmOptions}
-                        placeholder={''}
+                        placeholder={'am/pm'}
+                        maxHeight={100}
                     />
                 </View>
             </View>
 
-            <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text>Days to Take:</Text>
-                </View>
-                <View style={styles.column}>
-                    <DropDownPicker
-                        multiple={true}
-                        min={0}
-                        max={7}
-                        open={openDays}
-                        value={days}
-                        items={daysOptions}
-                        setOpen={setOpenDays}
-                        setValue={setDays}
-                        setItems={setDaysOptions}
-                        placeholder={''}
-                    />
-                </View>
-            </View>
+            <Text style={styles.inputLabel} >Days to Take:</Text>
+            <DropDownPicker
+                containerStyle={{width: '85%', marginBottom: 15}}
+                multiple={true}
+                min={0}
+                max={7}
+                open={openDays}
+                value={days}
+                items={daysOptions}
+                setOpen={setOpenDays}
+                setValue={setDays}
+                setItems={setDaysOptions}
+                placeholder={''}
+                mode="BADGE"
+                maxHeight={150}
+            />
  
             <Button
                 title="Confirm"
@@ -183,11 +173,18 @@ const styles = StyleSheet.create({
     },
     inputField: {
         padding: 10,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        width: '85%',
+        marginBottom: 15,
+        borderRadius: 10
+    },
+    inputLabel: {
+        fontWeight: 'bold',
+        marginBottom: 10
     },
     row: {
         flexDirection: 'row',
-        marginBottom: 10,
+        width: '85%'
     },
     column: {
         flex: 1,
