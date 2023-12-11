@@ -6,7 +6,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 function EditMedScreen({ navigation, route }) {
     const [medName, setMedName] = React.useState(route.params.medName);
     const [dosageAmount, setDosageAmount] = React.useState(route.params.dosageAmount);
-    const [medAmount, setMedAmount] = React.useState(route.params.medAmount);
     const [hourToTake, setHourToTake] = React.useState(route.params.hourToTake);
     const [openHour, setOpenHour] = React.useState(false);
     const [hours, setHours] = React.useState([
@@ -66,13 +65,13 @@ function EditMedScreen({ navigation, route }) {
     }
 
     const handleConfirm = () => {
-        if (medName === '' || dosageAmount ==='' || medAmount === '' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
+        if (medName === '' || dosageAmount ==='' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
             emptyInputAlert();
         }
         else {
             navigation.navigate({
                 name: 'Medications',
-                params: { edited: true, medName: medName, dosageAmount: dosageAmount, medAmount: medAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: route.params.medNumber },
+                params: { edited: true, medName: medName, dosageAmount: dosageAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: route.params.medNumber },
                 merge: true
             })
         }   
@@ -108,21 +107,6 @@ function EditMedScreen({ navigation, route }) {
                     />
                 </View>
             </View>
-
-            <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text>Medication Supply:</Text>
-                </View>
-                <View style={styles.column}>
-                    <TextInput 
-                        style={styles.inputField}
-                        maxLength={20}
-                        value={medAmount}
-                        onChangeText={setMedAmount}
-                    />
-                </View>
-            </View>
-            
 
             <View style={styles.row}>
                 <View style={styles.column}>

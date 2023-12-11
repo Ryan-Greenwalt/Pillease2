@@ -1,20 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-function Medication({medInfo: { medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete, onEdit}) {
+function Medication({medInfo: { medName, dosageAmount, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete, onEdit}) {
     handleDeleteMed = () => {
         onDelete?.(medNumber);
     }
 
     handleEditMed = () => {
-        onEdit?.(medName, dosageAmount, medAmount, hourToTake, minuteToTake, amPm, days, medNumber)
+        onEdit?.(medName, dosageAmount, hourToTake, minuteToTake, amPm, days, medNumber)
     }
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{medName}</Text>
             <Text>Dosage: {dosageAmount}</Text>
-            <Text>Supply: {medAmount}</Text>
             <Text>Take at: {hourToTake}:{minuteToTake} {amPm}</Text>
             <Text>{days.join(', ')}</Text>
             <Button
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'skyblue',
-        width: '80%',
+        width: '90%',
         marginTop: 10,
         marginBottom: 10
     },

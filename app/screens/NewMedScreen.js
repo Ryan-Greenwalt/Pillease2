@@ -7,7 +7,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 function NewMedScreen({ navigation }) {
     const [medName, setMedName] = React.useState('');
     const [dosageAmount, setDosageAmount] = React.useState('');
-    const [medAmount, setMedAmount] = React.useState('');
     const [hourToTake, setHourToTake] = React.useState('');
     const [openHour, setOpenHour] = React.useState(false);
     const [hours, setHours] = React.useState([
@@ -67,13 +66,13 @@ function NewMedScreen({ navigation }) {
     }
 
     const handleConfirm = () => {
-        if (medName === '' || dosageAmount ==='' || medAmount === '' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
+        if (medName === '' || dosageAmount ==='' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
             emptyInputAlert();
         }
         else {
             navigation.navigate({
                 name: 'Medications',
-                params: { edited: false, medName: medName, dosageAmount: dosageAmount, medAmount: medAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days },
+                params: { edited: false, medName: medName, dosageAmount: dosageAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days },
                 merge: true
             })
             scheduleNotification();
@@ -110,21 +109,6 @@ function NewMedScreen({ navigation }) {
                     />
                 </View>
             </View>
-
-            <View style={styles.row}>
-                <View style={styles.column}>
-                    <Text>Medication Supply:</Text>
-                </View>
-                <View style={styles.column}>
-                    <TextInput 
-                        style={styles.inputField}
-                        maxLength={20}
-                        value={medAmount}
-                        onChangeText={setMedAmount}
-                    />
-                </View>
-            </View>
-            
 
             <View style={styles.row}>
                 <View style={styles.column}>
