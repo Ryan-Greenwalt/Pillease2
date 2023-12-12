@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, View, Text, TextInput, Alert, Keyboard } from 'react-native';
+import { StyleSheet, Button, View, Text, TextInput, Alert, Keyboard , TouchableHighlight} from 'react-native';
 // npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -190,10 +190,9 @@ function EditMedScreen({ navigation, route }) {
                 onPress={Keyboard.dismiss}
             />
  
-            <Button
-                title="Confirm"
-                onPress={handleConfirm}
-            />
+            <TouchableHighlight style={styles.button} underlayColor="#DDDDDD" onPress={handleConfirm}>
+            <Text style={styles.buttonText}>Confirm</Text>
+            </TouchableHighlight>
         </View>
     );
 }
@@ -222,7 +221,22 @@ const styles = StyleSheet.create({
     column: {
         flex: 1,
         justifyContent: 'center'
-    }
-})
+    },
+    
+  button: {
+    backgroundColor: '#3498db',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 20,
+    marginBottom: 15,
+    marginTop: 20, 
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
 export default EditMedScreen;
