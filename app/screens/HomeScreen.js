@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 
 function HomeScreen({ navigation, route }) {
+  const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
   const [medications, setMedications] = useState([]);
   const [userName, setUserName] = useState('User');
   const [userPhoto, setUserPhoto] = useState(null);
@@ -17,6 +18,10 @@ function HomeScreen({ navigation, route }) {
   React.useEffect(() => {
     if (route.params?.medName && !route.params?.edited) {
       var medNumber = medications.length + 1;
+      var days = route.params.days;
+      var sortedDays = days.sort(function(a, b) {
+        return daysOfWeek.indexOf(a) - daysOfWeek.indexOf(b);
+      });
       setMedications([
         ...medications,
         {
@@ -26,7 +31,7 @@ function HomeScreen({ navigation, route }) {
           hourToTake: route.params.hourToTake,
           minuteToTake: route.params.minuteToTake,
           amPm: route.params.amPm,
-          days: route.params.days,
+          days: sortedDays,
           medNumber: medNumber,
         },
       ]);
@@ -36,6 +41,10 @@ function HomeScreen({ navigation, route }) {
   // When the user edits a medication, update it in the medications array
   React.useEffect(() => {
     if (route.params?.edited) {
+      var days = route.params.days;
+      var sortedDays = days.sort(function(a, b) {
+        return daysOfWeek.indexOf(a) - daysOfWeek.indexOf(b);
+      });
       const editedMeds = medications.map((medication) => {
         if (medication.medNumber === route.params.medNumber) {
           return {
@@ -45,7 +54,7 @@ function HomeScreen({ navigation, route }) {
             hourToTake: route.params.hourToTake,
             minuteToTake: route.params.minuteToTake,
             amPm: route.params.amPm,
-            days: route.params.days,
+            days: sortedDays,
             medNumber: route.params.medNumber,
           };
         } else {
