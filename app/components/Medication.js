@@ -1,34 +1,49 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+// npx expo install expo-checkbox
+import CheckBox from 'expo-checkbox';
 
 function Medication({medInfo: { medName, dosageAmount, dosageUnit, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete, onEdit}) {
-  handleDeleteMed = () => {
-      onDelete?.(medNumber);
-  }
+    const [taken, setTaken] = React.useState(false);
 
-  handleEditMed = () => {
-      onEdit?.(medName, dosageAmount, dosageUnit, hourToTake, minuteToTake, amPm, days, medNumber)
-  }
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{medName}</Text>
-      <Text>Dosage: {dosageAmount} {dosageUnit}</Text>
-      <Text>Take at: {hourToTake}:{minuteToTake} {amPm}</Text>
-      <Text>{days.join(', ')}</Text>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Edit"
-          onPress={handleEditMed}
-          style={styles.button}
-        />
-        <Button
-          title="Delete"
-          onPress={handleDeleteMed}
-          style={styles.button}
-        />
-      </View>
-    </View>
-  );
+    handleDeleteMed = () => {
+        onDelete?.(medNumber);
+    }
+
+    handleEditMed = () => {
+        onEdit?.(medName, dosageAmount, dosageUnit, hourToTake, minuteToTake, amPm, days, medNumber)
+    }
+
+    handleCheckBox = () => {
+        setTaken(!taken);
+    }
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.medNameRow}>
+                <Text style={styles.medName}>{medName}</Text>
+                <CheckBox
+                    value={taken}
+                    onValueChange={handleCheckBox}
+                />
+            </View>
+            <Text>Dosage: {dosageAmount} {dosageUnit}</Text>
+            <Text>Take at: {hourToTake}:{minuteToTake} {amPm}</Text>
+            <Text>{days.join(', ')}</Text>
+            <View style={styles.buttonContainer}>
+            <Button
+                title="Edit"
+                onPress={handleEditMed}
+                style={styles.button}
+            />
+            <Button
+                title="Delete"
+                onPress={handleDeleteMed}
+                style={styles.button}
+            />
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -40,7 +55,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  title: {
+  medName: {
     fontWeight: 'bold'
   },
   buttonContainer: {
@@ -52,6 +67,9 @@ const styles = StyleSheet.create({
   button: {
     marginHorizontal: 5, 
   },
+  medNameRow: {
+    flexDirection: 'row',
+  }
 });
 
 export default Medication;
