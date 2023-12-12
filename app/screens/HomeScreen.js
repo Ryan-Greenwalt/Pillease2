@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
   },
   medicationsContainer: {
     flexGrow: 1,
+    marginBottom: 10,
   },
   centeredMedicationsContainer: {
     alignItems: 'center',
