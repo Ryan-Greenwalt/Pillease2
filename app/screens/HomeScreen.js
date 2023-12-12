@@ -3,7 +3,7 @@
 // npm install react-native-vector-images
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Button, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, ScrollView } from 'react-native';
 import Medication from '../components/Medication';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,29 +15,27 @@ function HomeScreen({ navigation, route }) {
 
   // When the user creates a new medication, add its values to the medications array
   React.useEffect(() => {
-    if(route.params?.medName && !route.params?.edited) {
+    if (route.params?.medName && !route.params?.edited) {
       var medNumber = medications.length + 1;
-      setMedications(
-          [
-              ...medications,
-              {
-                  medName: route.params.medName,
-                  dosageAmount: route.params.dosageAmount,
-                  hourToTake: route.params.hourToTake,
-                  minuteToTake: route.params.minuteToTake,
-                  amPm: route.params.amPm,
-                  days: route.params.days,
-                  medNumber: medNumber
-              }
-          ]
-      );
+      setMedications([
+        ...medications,
+        {
+          medName: route.params.medName,
+          dosageAmount: route.params.dosageAmount,
+          hourToTake: route.params.hourToTake,
+          minuteToTake: route.params.minuteToTake,
+          amPm: route.params.amPm,
+          days: route.params.days,
+          medNumber: medNumber,
+        },
+      ]);
     }
   }, [route.params?.medName]);
 
   // When the user edits a medication, update it in the medications array
   React.useEffect(() => {
     if (route.params?.edited) {
-      const editedMeds = medications.map(medication => {
+      const editedMeds = medications.map((medication) => {
         if (medication.medNumber === route.params.medNumber) {
           return {
             medName: route.params.medName,
@@ -46,10 +44,9 @@ function HomeScreen({ navigation, route }) {
             minuteToTake: route.params.minuteToTake,
             amPm: route.params.amPm,
             days: route.params.days,
-            medNumber: route.params.medNumber
-          }
-        }
-        else {
+            medNumber: route.params.medNumber,
+          };
+        } else {
           return medication;
         }
       });
@@ -70,10 +67,18 @@ function HomeScreen({ navigation, route }) {
   const handleEditMed = (medName, dosageAmount, hourToTake, minuteToTake, amPm, days, medNumber) => {
     navigation.navigate({
       name: 'Edit Med',
-      params: { medName: medName, dosageAmount: dosageAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: medNumber },
-      merge: true
-    })
-  }
+      params: {
+        medName: medName,
+        dosageAmount: dosageAmount,
+        hourToTake: hourToTake,
+        minuteToTake: minuteToTake,
+        amPm: amPm,
+        days: days,
+        medNumber: medNumber,
+      },
+      merge: true,
+    });
+  };
 
   const handleUploadPhoto = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -96,29 +101,42 @@ function HomeScreen({ navigation, route }) {
   };
 
   return (
-    <View style={styles.container}>
+    // Handles keyboard taps outside of screen to remove it
+    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
       <View style={styles.userContentContainer}>
-        <View style={styles.userContainer}>
-          <TouchableOpacity onPress={handleUploadPhoto}>
+        <TouchableOpacity onPress={handleUploadPhoto}>
+          <View style={styles.userContainer}>
             <View>
               {userPhoto && <Image source={{ uri: userPhoto }} style={styles.userPhoto} />}
               {!userPhoto && (
                 <View style={styles.uploadIconContainer}>
+                  {/* icon for user image upload container */}
                   <Ionicons name="camera-outline" size={24} color="white" />
                 </View>
               )}
             </View>
-          </TouchableOpacity>
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.welcomeMessage}>Welcome, {userName}!</Text>
+            <View style={styles.welcomeContainer}>
+              <Text style={styles.welcomeMessage}>Welcome, {userName}!</Text>
+            </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
-      {medications.map((medication, index) => (
-        <Medication medInfo={medication} key={index} onDelete={handleDeleteMed} onEdit={handleEditMed} />
-      ))}
-      <Button title="New Med" onPress={handleNewMed} />
-    </View>
+
+      {/* Medications Container */}
+      <ScrollView style={styles.medicationsContainer} showsVerticalScrollIndicator={false}>
+        {/* Since you can't apply styles to a Scrollview, we have to make a View in the Scrollview */}
+        <View style={styles.centeredMedicationsContainer}>
+          {medications.map((medication, index) => (
+            <Medication medInfo={medication} key={index} onDelete={handleDeleteMed} onEdit={handleEditMed} />
+          ))}
+        </View>
+      </ScrollView>
+
+      {/* Centered and rounded "New Med" button */}
+      <TouchableHighlight style={styles.newMedButton} underlayColor="#DDDDDD" onPress={handleNewMed}>
+        <Text style={styles.newMedButtonText}>New Med</Text>
+      </TouchableHighlight>
+    </ScrollView>
   );
 }
 
@@ -134,8 +152,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   userContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
   },
   userPhoto: {
     width: 100,
@@ -146,16 +164,33 @@ const styles = StyleSheet.create({
   welcomeMessage: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginLeft: 10,
   },
   uploadIconContainer: {
-    position: 'absolute',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: 8,
     borderRadius: 20,
+    marginLeft: 10,
+  },
+  medicationsContainer: {
+    flexGrow: 1,
+  },
+  centeredMedicationsContainer: {
+    alignItems: 'center',
+  },
+  newMedButton: {
+    backgroundColor: '#3498db',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 20,
+    marginBottom: 15,
+  },
+  newMedButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
-
-
 
 export default HomeScreen;
