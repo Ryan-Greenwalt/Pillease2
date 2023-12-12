@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, View, Text, TextInput, Alert } from 'react-native';
+import { StyleSheet, Button, View, Text, TextInput, Alert, Keyboard } from 'react-native';
 import { scheduleNotification } from '../components/NotificationButton';
 // npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -7,6 +7,16 @@ import DropDownPicker from 'react-native-dropdown-picker';
 function NewMedScreen({ navigation }) {
     const [medName, setMedName] = React.useState('');
     const [dosageAmount, setDosageAmount] = React.useState('');
+    const [dosageUnit, setDosageUnit] = React.useState('');
+    const [openUnit, setOpenUnit] = React.useState(false);
+    const [units, setUnits] = React.useState([
+        {label: 'pill(s)', value: 'pill(s)'},
+        {label: 'ml', value: 'ml'},
+        {label: 'mg', value: 'mg'},
+        {label: 'tsp', value: 'tsp'},
+        {label: 'tbsp', value: 'tbsp'},
+        {label: 'dose', value: 'dose'}
+    ]);
     const [hourToTake, setHourToTake] = React.useState('');
     const [openHour, setOpenHour] = React.useState(false);
     const [hours, setHours] = React.useState([
@@ -66,13 +76,13 @@ function NewMedScreen({ navigation }) {
     }
 
     const handleConfirm = () => {
-        if (medName === '' || dosageAmount ==='' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
+        if (medName === '' || dosageAmount ==='' || dosageUnit === '' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
             emptyInputAlert();
         }
         else {
             navigation.navigate({
                 name: 'Medications',
-                params: { edited: false, medName: medName, dosageAmount: dosageAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days },
+                params: { edited: false, medName: medName, dosageAmount: dosageAmount, dosageUnit: dosageUnit, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days },
                 merge: true
             })
             scheduleNotification();
@@ -90,20 +100,39 @@ function NewMedScreen({ navigation }) {
                 onChangeText={setMedName}
             />
 
-            <Text style={styles.inputLabel} >Dosage Amount (ex: 1 pill):</Text>
-            <TextInput 
-                style={styles.inputField}
-                textAlign={'center'}
-                maxLength={20}
-                value={dosageAmount}
-                onChangeText={setDosageAmount}
-            />
+            <Text style={styles.inputLabel} >Dosage Size:</Text>
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <TextInput 
+                        style={styles.inputField}
+                        textAlign={'center'}
+                        maxLength={10}
+                        value={dosageAmount}
+                        onChangeText={setDosageAmount}
+                        keyboardType='numeric'
+                    />
+                </View>
+                <View style={styles.column}>
+                    <DropDownPicker
+                        containerStyle={{marginBottom: openUnit ? 100 : 15}}
+                        open={openUnit}
+                        value={dosageUnit}
+                        items={units}
+                        setOpen={setOpenUnit}
+                        setValue={setDosageUnit}
+                        setItems={setUnits}
+                        placeholder={'Unit'}
+                        maxHeight={100}
+                        onPress={Keyboard.dismiss}
+                    />
+                </View>
+            </View>
 
             <Text style={styles.inputLabel} >Time to Take:</Text>
             <View style={styles.row}>
                 <View style={styles.column}>
                     <DropDownPicker
-                        containerStyle={{marginBottom: openHour ? 100 : 15}}
+                        containerStyle={{marginBottom: openHour || openMinute || openAmPm ? 100 : 15}}
                         open={openHour}
                         value={hourToTake}
                         items={hours}
@@ -112,11 +141,12 @@ function NewMedScreen({ navigation }) {
                         setItems={setHours}
                         placeholder={'Hour'}
                         maxHeight={100}
+                        onPress={Keyboard.dismiss}
                     />
                 </View>
                 <View style={styles.column}>
                     <DropDownPicker
-                        containerStyle={{marginBottom: openMinute ? 100 : 15}}
+                        containerStyle={{marginBottom: openHour || openMinute || openAmPm ? 100 : 15}}
                         open={openMinute}
                         value={minuteToTake}
                         items={minutes}
@@ -125,11 +155,12 @@ function NewMedScreen({ navigation }) {
                         setItems={setMinutes}
                         placeholder={'Minute'}
                         maxHeight={100}
+                        onPress={Keyboard.dismiss}
                     />
                 </View>
                 <View style={styles.column}>
                     <DropDownPicker
-                        containerStyle={{marginBottom: openAmPm ? 100 : 15}}
+                        containerStyle={{marginBottom: openHour || openMinute || openAmPm ? 100 : 15}}
                         open={openAmPm}
                         value={amPm}
                         items={amPmOptions}
@@ -138,6 +169,7 @@ function NewMedScreen({ navigation }) {
                         setItems={setAmPmOptions}
                         placeholder={'am/pm'}
                         maxHeight={100}
+                        onPress={Keyboard.dismiss}
                     />
                 </View>
             </View>
@@ -156,7 +188,8 @@ function NewMedScreen({ navigation }) {
                 setItems={setDaysOptions}
                 placeholder={''}
                 mode="BADGE"
-                maxHeight={150}
+                maxHeight={100}
+                onPress={Keyboard.dismiss}
             />
  
             <Button

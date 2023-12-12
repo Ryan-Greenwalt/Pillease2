@@ -1,11 +1,21 @@
 import React from 'react';
-import { StyleSheet, Button, View, Text, TextInput, Alert } from 'react-native';
+import { StyleSheet, Button, View, Text, TextInput, Alert, Keyboard } from 'react-native';
 // npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
 
 function EditMedScreen({ navigation, route }) {
     const [medName, setMedName] = React.useState(route.params.medName);
     const [dosageAmount, setDosageAmount] = React.useState(route.params.dosageAmount);
+    const [dosageUnit, setDosageUnit] = React.useState(route.params.dosageUnit);
+    const [openUnit, setOpenUnit] = React.useState(false);
+    const [units, setUnits] = React.useState([
+        {label: 'pill(s)', value: 'pill(s)'},
+        {label: 'ml', value: 'ml'},
+        {label: 'mg', value: 'mg'},
+        {label: 'tsp', value: 'tsp'},
+        {label: 'tbsp', value: 'tbsp'},
+        {label: 'dose', value: 'dose'}
+    ]);
     const [hourToTake, setHourToTake] = React.useState(route.params.hourToTake);
     const [openHour, setOpenHour] = React.useState(false);
     const [hours, setHours] = React.useState([
@@ -65,13 +75,13 @@ function EditMedScreen({ navigation, route }) {
     }
 
     const handleConfirm = () => {
-        if (medName === '' || dosageAmount ==='' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
+        if (medName === '' || dosageAmount ==='' || dosageUnit === '' || hourToTake === '' || minuteToTake == '' || amPm === '' || days.length === 0) {
             emptyInputAlert();
         }
         else {
             navigation.navigate({
                 name: 'Medications',
-                params: { edited: true, medName: medName, dosageAmount: dosageAmount, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: route.params.medNumber },
+                params: { edited: true, medName: medName, dosageAmount: dosageAmount, dosageUnit: dosageUnit, hourToTake: hourToTake, minuteToTake: minuteToTake, amPm: amPm, days: days, medNumber: route.params.medNumber },
                 merge: true
             })
         }   
@@ -88,20 +98,39 @@ function EditMedScreen({ navigation, route }) {
                 onChangeText={setMedName}
             />
 
-            <Text style={styles.inputLabel} >Dosage Amount (ex: 1 pill):</Text>
-            <TextInput 
-                style={styles.inputField}
-                textAlign={'center'}
-                maxLength={20}
-                value={dosageAmount}
-                onChangeText={setDosageAmount}
-            />
+            <Text style={styles.inputLabel} >Dosage Size:</Text>
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <TextInput 
+                        style={styles.inputField}
+                        textAlign={'center'}
+                        maxLength={10}
+                        value={dosageAmount}
+                        onChangeText={setDosageAmount}
+                        keyboardType='numeric'
+                    />
+                </View>
+                <View style={styles.column}>
+                    <DropDownPicker
+                        containerStyle={{marginBottom: openUnit ? 100 : 15}}
+                        open={openUnit}
+                        value={dosageUnit}
+                        items={units}
+                        setOpen={setOpenUnit}
+                        setValue={setDosageUnit}
+                        setItems={setUnits}
+                        placeholder={'Unit'}
+                        maxHeight={100}
+                        onPress={Keyboard.dismiss}
+                    />
+                </View>
+            </View>
 
             <Text style={styles.inputLabel} >Time to Take:</Text>
             <View style={styles.row}>
                 <View style={styles.column}>
                     <DropDownPicker
-                        containerStyle={{marginBottom: openHour ? 100 : 15}}
+                        containerStyle={{marginBottom: openHour || openMinute || openAmPm ? 100 : 15}}
                         open={openHour}
                         value={hourToTake}
                         items={hours}
@@ -110,11 +139,12 @@ function EditMedScreen({ navigation, route }) {
                         setItems={setHours}
                         placeholder={'Hour'}
                         maxHeight={100}
+                        onPress={Keyboard.dismiss}
                     />
                 </View>
                 <View style={styles.column}>
                     <DropDownPicker
-                        containerStyle={{marginBottom: openMinute ? 100 : 15}}
+                        containerStyle={{marginBottom: openHour || openMinute || openAmPm ? 100 : 15}}
                         open={openMinute}
                         value={minuteToTake}
                         items={minutes}
@@ -123,11 +153,12 @@ function EditMedScreen({ navigation, route }) {
                         setItems={setMinutes}
                         placeholder={'Minute'}
                         maxHeight={100}
+                        onPress={Keyboard.dismiss}
                     />
                 </View>
                 <View style={styles.column}>
                     <DropDownPicker
-                        containerStyle={{marginBottom: openAmPm ? 100 : 15}}
+                        containerStyle={{marginBottom: openHour || openMinute || openAmPm ? 100 : 15}}
                         open={openAmPm}
                         value={amPm}
                         items={amPmOptions}
@@ -136,6 +167,7 @@ function EditMedScreen({ navigation, route }) {
                         setItems={setAmPmOptions}
                         placeholder={'am/pm'}
                         maxHeight={100}
+                        onPress={Keyboard.dismiss}
                     />
                 </View>
             </View>
@@ -154,7 +186,8 @@ function EditMedScreen({ navigation, route }) {
                 setItems={setDaysOptions}
                 placeholder={''}
                 mode="BADGE"
-                maxHeight={150}
+                maxHeight={100}
+                onPress={Keyboard.dismiss}
             />
  
             <Button

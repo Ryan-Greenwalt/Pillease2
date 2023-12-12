@@ -22,6 +22,7 @@ function HomeScreen({ navigation, route }) {
         {
           medName: route.params.medName,
           dosageAmount: route.params.dosageAmount,
+          dosageUnit: route.params.dosageUnit,
           hourToTake: route.params.hourToTake,
           minuteToTake: route.params.minuteToTake,
           amPm: route.params.amPm,
@@ -40,6 +41,7 @@ function HomeScreen({ navigation, route }) {
           return {
             medName: route.params.medName,
             dosageAmount: route.params.dosageAmount,
+            dosageUnit: route.params.dosageUnit,
             hourToTake: route.params.hourToTake,
             minuteToTake: route.params.minuteToTake,
             amPm: route.params.amPm,
@@ -64,12 +66,13 @@ function HomeScreen({ navigation, route }) {
     setMedications(newMeds);
   };
 
-  const handleEditMed = (medName, dosageAmount, hourToTake, minuteToTake, amPm, days, medNumber) => {
+  const handleEditMed = (medName, dosageAmount, dosageUnit, hourToTake, minuteToTake, amPm, days, medNumber) => {
     navigation.navigate({
       name: 'Edit Med',
       params: {
         medName: medName,
         dosageAmount: dosageAmount,
+        dosageUnit: dosageUnit,
         hourToTake: hourToTake,
         minuteToTake: minuteToTake,
         amPm: amPm,
