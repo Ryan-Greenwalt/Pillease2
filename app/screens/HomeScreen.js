@@ -13,11 +13,13 @@ function HomeScreen({ navigation, route }) {
   const [medications, setMedications] = useState([]);
   const [userName, setUserName] = useState('User');
   const [userPhoto, setUserPhoto] = useState(null);
+  const [currMedId, setCurrMedId] = useState(1);
 
   // When the user creates a new medication, add its values to the medications array
   React.useEffect(() => {
     if (route.params?.medName && !route.params?.edited) {
-      var medNumber = medications.length + 1;
+      var medNumber = currMedId;
+      setCurrMedId(currMedId + 1);
       var days = route.params.days;
       var sortedDays = days.sort(function(a, b) {
         return daysOfWeek.indexOf(a) - daysOfWeek.indexOf(b);
