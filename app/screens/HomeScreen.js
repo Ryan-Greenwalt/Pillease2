@@ -7,6 +7,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableHighlight, Sc
 import Medication from '../components/Medication';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
+import Globals from '../components/Globals';
 
 function HomeScreen({ navigation, route }) {
   const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   newMedButton: {
-    backgroundColor: '#3498db',
+    backgroundColor: Globals.buttonLight,
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 20,

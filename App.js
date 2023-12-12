@@ -23,6 +23,8 @@ import HomeStackScreen from './app/screens/HomeStackScreen';
 import SettingsStackScreen from './app/screens/SettingsStackScreen';
 import MoodLogStackScreen from './app/screens/MoodLogStackScreen';
 export { schedulePushNotification, registerForPushNotificationsAsync };
+import Globals from './app/components/Globals';
+import { Ionicons } from '@expo/vector-icons';
 
 // Create a Bottom Tab Navigator
 const NavBar = createBottomTabNavigator();
@@ -97,24 +99,42 @@ export default function App() {
 //     </NavigationContainer>
 //   );
 // }
-return (
-  <NavigationContainer>
-    <NavBar.Navigator
-      screenOptions={({ route }) => ({
-        tabBarLabel: route.name,
-        headerShown: false,
-        tabBarIcon: ({ focused, color, size }) => {
-          // custom nav icons will go here eventually
-        },
-      })}
-    >
-      {/* screen for home tab */}
-      <NavBar.Screen name="Home" component={HomeStackScreen} />
-      <NavBar.Screen name="Mood Log" component={MoodLogStackScreen} />
-      <NavBar.Screen name="Settings" component={SettingsStackScreen} />
-    </NavBar.Navigator>
-  </NavigationContainer>
-);
+  return (
+    <NavigationContainer>
+      <NavBar.Navigator
+        screenOptions={({ route }) => ({
+          tabBarStyle: {
+            backgroundColor: Globals.primary
+          },
+          tabBarLabel: route.name,
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = 'home';
+            } 
+            else if (route.name === 'Mood Log') {
+              iconName = 'happy';
+            } 
+            else if (route.name === 'Settings') {
+              iconName = 'settings';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: Globals.primaryLight,
+          tabBarInactiveTintColor: Globals.navIconDark
+        })}
+      >
+        {/* screen for home tab */}
+        <NavBar.Screen name="Home" component={HomeStackScreen} />
+        <NavBar.Screen name="Mood Log" component={MoodLogStackScreen} />
+        <NavBar.Screen name="Settings" component={SettingsStackScreen} />
+      </NavBar.Navigator>
+    </NavigationContainer>
+  );
 }
 
 // Pushes notification after 2 seconds

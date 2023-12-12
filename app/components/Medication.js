@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import MedCheckbox from './MedCheckbox';
+import Globals from './Globals';
 
 function Medication({ medInfo: { medName, dosageAmount, dosageUnit, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete, onEdit }) {
   const [taken, setTaken] = React.useState(false);
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'skyblue',
+    backgroundColor: Globals.primary,
     width: '80%',
     marginTop: 10,
     marginBottom: 10,
@@ -108,11 +109,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: '100%',
     borderWidth: 3,
-    borderColor: '#b3dabe',
+    borderColor: Globals.buttonLight,
     backgroundColor: 'transparent',
   },
   checkboxChecked: {
-    backgroundColor: '#b3dabe',
+    backgroundColor: Globals.buttonLight,
   },
   checkboxContainer: {
     flexDirection: 'row',

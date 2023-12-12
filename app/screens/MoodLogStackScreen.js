@@ -6,7 +6,15 @@ const MoodLogStack = createNativeStackNavigator();
 
 function MoodLogStackScreen(props) {
     return (
-        <MoodLogStack.Navigator>
+        <MoodLogStack.Navigator 
+            screenOptions= {{
+                contentStyle: {
+                    backgroundColor: 'white'
+                },
+                headerStyle: {
+                    backgroundColor: Globals.primary
+                }
+            }}>
             <MoodLogStack.Screen name="Mood" component={MoodLogScreen} />
         </MoodLogStack.Navigator>
     );

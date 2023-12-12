@@ -3,6 +3,7 @@ import { StyleSheet, Button, View, Text, TextInput, Alert, Keyboard , TouchableH
 import { scheduleNotification } from '../components/NotificationButton';
 // npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
+import Globals from '../components/Globals';
 
 function NewMedScreen({ navigation }) {
     const [medName, setMedName] = React.useState('');
@@ -210,7 +211,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '85%',
         marginBottom: 15,
-        borderRadius: 10
+        borderRadius: 10,
+        borderColor: 'black',
+        borderWidth: 1,
     },
     inputLabel: {
         fontWeight: 'bold',
@@ -225,7 +228,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     button: {
-        backgroundColor: '#3498db',
+        backgroundColor: Globals.buttonLight,
         paddingVertical: 15,
         paddingHorizontal: 30,
         borderRadius: 20,

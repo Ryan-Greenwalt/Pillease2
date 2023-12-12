@@ -13,7 +13,15 @@ const SettingsStack = createNativeStackNavigator();
 
 function SettingsStackScreen(props) {
     return (
-        <SettingsStack.Navigator>
+        <SettingsStack.Navigator
+            screenOptions= {{
+                contentStyle: {
+                    backgroundColor: 'white'
+                },
+                headerStyle: {
+                    backgroundColor: Globals.primary
+                }
+            }}>
             <SettingsStack.Screen name="Options" component={SettingsScreen} />
             <SettingsStack.Screen name="Visual Accessibility" component={VisualAccessibilityScreen} />
             <SettingsStack.Screen name="Audio Accessibility" component={AudioAccessibilityScreen} />

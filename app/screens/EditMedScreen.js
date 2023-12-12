@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Button, View, Text, TextInput, Alert, Keyboard , TouchableHighlight} from 'react-native';
 // npm install react-native-dropdown-picker
 import DropDownPicker from 'react-native-dropdown-picker';
+import Globals from '../components/Globals';
 
 function EditMedScreen({ navigation, route }) {
     const [medName, setMedName] = React.useState(route.params.medName);
@@ -208,7 +209,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '85%',
         marginBottom: 15,
-        borderRadius: 10
+        borderRadius: 10,
+        borderColor: 'black',
+        borderWidth: 1,
     },
     inputLabel: {
         fontWeight: 'bold',
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
     },
     
   button: {
-    backgroundColor: '#3498db',
+    backgroundColor: Globals.buttonLight,
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 20,
