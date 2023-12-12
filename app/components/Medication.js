@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import CheckBox from 'expo-checkbox';
+import MedCheckbox from './MedCheckbox';
 
 function Medication({ medInfo: { medName, dosageAmount, dosageUnit, hourToTake, minuteToTake, amPm, days, medNumber }, onDelete, onEdit }) {
   const [taken, setTaken] = React.useState(false);
@@ -22,10 +22,14 @@ function Medication({ medInfo: { medName, dosageAmount, dosageUnit, hourToTake, 
       <View style={styles.medicationInfoContainer}>
         <View style={styles.medNameRow}>
           <Text style={styles.boldText}>{medName}</Text>
-          <CheckBox
-            value={taken}
-            onValueChange={handleCheckBox}
-          />
+          <View style={styles.checkboxContainer}>
+            <MedCheckbox
+              checked={taken}
+              onChange={handleCheckBox}
+              buttonStyle={styles.checkboxStyle}
+              activeButtonStyle={styles.checkboxChecked}
+            />
+          </View>
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Dosage:</Text>
@@ -97,6 +101,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 5,
   },
+  checkboxStyle: {
+    width: 34,
+    height: 34,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '100%',
+    borderWidth: 3,
+    borderColor: '#b3dabe',
+    backgroundColor: 'transparent',
+  },
+  checkboxChecked: {
+    backgroundColor: '#b3dabe',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
 });
 
 export default Medication;
