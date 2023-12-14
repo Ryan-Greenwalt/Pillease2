@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableHighlight, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableHighlight, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Globals from '../components/Globals';
 
 function UserFeedbackScreen(props) {
@@ -11,27 +11,30 @@ function UserFeedbackScreen(props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Have Advice? Let Us Know!</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Have Advice? Let Us Know!</Text>
 
-      {/* Feedback Input */}
-      <TextInput
-        style={styles.input}
-        multiline
-        placeholder="Type your feedback here..."
-        value={feedback}
-        onChangeText={(text) => setFeedback(text)}
-      />
+        {/* Feedback Input */}
+        <TextInput
+          style={styles.input}
+          multiline
+          placeholder="Type your feedback here..."
+          value={feedback}
+          onChangeText={(text) => setFeedback(text)}
+          maxLength={300}
+        />
 
-      {/* Submit Button */}
-      <TouchableHighlight
-        style={styles.button}
-        underlayColor="#DDDDDD"
-        onPress={handleFeedbackSubmit}
-      >
-        <Text style={styles.buttonText}>Submit Feedback</Text>
-      </TouchableHighlight>
-    </View>
+        {/* Submit Button */}
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="#DDDDDD"
+          onPress={handleFeedbackSubmit}
+        >
+          <Text style={styles.buttonText}>Submit Feedback</Text>
+        </TouchableHighlight>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -48,12 +51,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   input: {
-    height: 120,
+    height: 100,
     width: '100%',
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
+    borderRadius: 10
   },
   button: {
     backgroundColor: Globals.buttonLight, 

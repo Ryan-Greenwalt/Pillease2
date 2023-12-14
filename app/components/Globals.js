@@ -5,17 +5,14 @@ export default Globals = {
     // lavender
     primary: '#E8DDEA',
 
-    // off-white
-    primaryLight: '#FBFCF8',
+    // light gray
+    primaryLight: '#D9D9D9',
 
     // dark grey
     navIconDark: '#5B5B5B',
 
     // light pastel green
     buttonLight: '#B3DABE',
-
-    // light gray
-    editButton: '#D9D9D9',
 
     // light red
     deleteButton: '#e8a5a5'

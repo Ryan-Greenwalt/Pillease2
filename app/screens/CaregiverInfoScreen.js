@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableHighlight , TouchableWithoutFeedback, Keyboard} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Globals from '../components/Globals';
 
 function CaregiverInfoScreen(props) {
   const handleCaregiverMessage = () => {
     // additional logic can go here if we want to actually submit feedback
-    Alert.alert('Message/Reminder Set!', caregiverMessage);
+    Alert.alert('Reminder Set!', caregiverMessage);
   };
 
   const [caregiverMessage, setCaregiverMessage] = useState('');
@@ -15,14 +15,32 @@ function CaregiverInfoScreen(props) {
   const [hours, setHours] = useState([
     { label: '1', value: '1' },
     { label: '2', value: '2' },
-    // ... (other hours)
+    { label: '3', value: '3' },
+    { label: '4', value: '4' },
+    { label: '5', value: '5' },
+    { label: '6', value: '6' },
+    { label: '7', value: '7' },
+    { label: '8', value: '8' },
+    { label: '9', value: '9' },
+    { label: '10', value: '10' },
+    { label: '11', value: '11' },
+    { label: '12', value: '12' },
   ]);
   const [minuteToSend, setMinuteToSend] = useState('');
   const [openMinute, setOpenMinute] = useState(false);
   const [minutes, setMinutes] = useState([
     { label: '00', value: '0' },
     { label: '05', value: '5' },
-    // ... (other minutes)
+    { label: '10', value: '10' },
+    { label: '15', value: '15' },
+    { label: '20', value: '20' },
+    { label: '25', value: '25' },
+    { label: '30', value: '30' },
+    { label: '35', value: '35' },
+    { label: '40', value: '40' },
+    { label: '45', value: '45' },
+    { label: '50', value: '50' },
+    { label: '55', value: '55' },
   ]);
   const [amPm, setAmPm] = useState('');
   const [openAmPm, setOpenAmPm] = useState(false);
@@ -40,44 +58,54 @@ function CaregiverInfoScreen(props) {
           style={styles.input}
           multiline
           placeholder="Type your message here!"
+          maxLength={300}
           value={caregiverMessage}
           onChangeText={(text) => setCaregiverMessage(text)}
         />
 
         <View style={styles.row}>
-          <DropDownPicker
-            open={openHour}
-            value={hourToSend}
-            items={hours}
-            setOpen={setOpenHour}
-            setValue={setHourToSend}
-            setItems={setHours}
-            placeholder={'Hour'}
-            containerStyle={styles.pickerContainer}
-            style={styles.pickerStyle}
-          />
-          <DropDownPicker
-            open={openMinute}
-            value={minuteToSend}
-            items={minutes}
-            setOpen={setOpenMinute}
-            setValue={setMinuteToSend}
-            setItems={setMinutes}
-            placeholder={'Minute'}
-            containerStyle={styles.pickerContainer}
-            style={styles.pickerStyle}
-          />
-          <DropDownPicker
-            open={openAmPm}
-            value={amPm}
-            items={amPmOptions}
-            setOpen={setOpenAmPm}
-            setValue={setAmPm}
-            setItems={setAmPmOptions}
-            placeholder={''}
-            containerStyle={styles.pickerContainer}
-            style={styles.pickerStyle}
-          />
+          <View style={styles.column}>
+            <DropDownPicker
+              open={openHour}
+              value={hourToSend}
+              items={hours}
+              setOpen={setOpenHour}
+              setValue={setHourToSend}
+              setItems={setHours}
+              placeholder={'Hour'}
+              containerStyle={{ marginBottom: openHour || openMinute || openAmPm ? 100 : 15 }}
+              maxHeight={100}
+              style={styles.pickerStyle}
+            />
+          </View>
+          <View style={styles.column}>
+            <DropDownPicker
+              open={openMinute}
+              value={minuteToSend}
+              items={minutes}
+              setOpen={setOpenMinute}
+              setValue={setMinuteToSend}
+              setItems={setMinutes}
+              placeholder={'Minute'}
+              containerStyle={{ marginBottom: openHour || openMinute || openAmPm ? 100 : 15 }}
+              maxHeight={100}
+              style={styles.pickerStyle}
+            />
+          </View>
+          <View style={styles.column}>
+            <DropDownPicker
+              open={openAmPm}
+              value={amPm}
+              items={amPmOptions}
+              setOpen={setOpenAmPm}
+              setValue={setAmPm}
+              setItems={setAmPmOptions}
+              placeholder={''}
+              containerStyle={{ marginBottom: openHour || openMinute || openAmPm ? 100 : 15 }}
+              maxHeight={100}
+              style={styles.pickerStyle}
+            />
+          </View>
         </View>
 
         <TouchableHighlight
@@ -111,10 +139,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
+    borderRadius: 10
   },
   row: {
     flexDirection: 'row',
     marginBottom: 10,
+  },
+  column: {
+    flex: 1,
+    justifyContent: 'center'
   },
   pickerContainer: {
     flex: 1,
