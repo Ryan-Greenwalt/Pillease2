@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import MedCheckbox from './MedCheckbox';
 import Globals from './Globals';
 
@@ -46,16 +46,12 @@ function Medication({ medInfo: { medName, dosageAmount, dosageUnit, hourToTake, 
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <Button
-          title="Edit"
-          onPress={handleEditMed}
-          style={styles.button}
-        />
-        <Button
-          title="Delete"
-          onPress={handleDeleteMed}
-          style={styles.button}
-        />
+        <TouchableHighlight style={styles.button} underlayColor={Globals.buttonLight} onPress={handleEditMed}>
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} underlayColor={Globals.buttonLight} onPress={handleDeleteMed}>
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableHighlight>
       </View>
     </View>
   );
@@ -84,9 +80,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'space-between',
     width: '75%',
+    marginBottom:10,
   },
   button: {
+    flex: 1,
     marginHorizontal: 5,
+    backgroundColor: Globals.buttonLight,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   medNameRow: {
     flexDirection: 'row',
@@ -118,7 +128,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center'
-  }
+  },
 });
 
 export default Medication;
