@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import MoodLogStackScreen from './MoodLogStackScreen';
+import { StyleSheet, Text, View, Image, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Slider from '@react-native-community/slider'
+import Globals from '../components/Globals';
 
 
 function MoodLogScreen(props) {
@@ -14,118 +14,114 @@ function MoodLogScreen(props) {
     }
 
     return (
-        <>
-        
-        <View style={styles.containerTop}>
-        <Text style={{fontWeight: 'bold', marginTop: 50}}>How are you feeling today? </Text>
-       <Image source={require('../assets/moodfacestogether.png')} style ={styles.moodImg}/> 
-        </View>
-        
-        
-        <View style={styles.containerMiddle}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+                <View style={styles.containerTop}>
+                    <Text style={{fontWeight: 'bold', marginTop: 50}}>How are you feeling today? </Text>
+                    <Image source={require('../assets/moodfacestogether.png')} style ={styles.moodImg}/> 
+                </View>
+                
+                
+                <View style={styles.containerMiddle}>
                     <Slider
-            style={{width: 350, height: 40}}
-            minimumValue={0}
-            maximumValue={4}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
-            />
-        </View>
+                        style={{width: 350, height: 40}}
+                        minimumValue={0}
+                        maximumValue={4}
+                        minimumTrackTintColor={Globals.buttonLight}
+                        maximumTrackTintColor={Globals.navIconDark}
+                    />
+                </View>
 
-        <View style={styles.containerBottom}>
-        <Text style={{fontWeight: 'bold'}}>Symptoms</Text>
-            <View style={styles.buttonsRow}> 
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Chills</Text>
-            </View>
+                <View style={styles.containerBottom}>
                 
+                    <Text style={{fontWeight: 'bold', marginBottom: 10}}>Symptoms</Text>
+                    <TextInput
+                        style={styles.containerText}
+                        multiline={true}
+                        placeholder="Notes"
+                        value={symtpomInput}
+                        maxLength={200}
+                        onChangeText={text => setFeedback(text)}
+                    />
+                    <View style={styles.buttonsRow}> 
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Chills</Text>
+                        </View>
 
- 
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Nausea</Text>
-                </View>
-                </View>
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Nausea</Text>
+                        </View>
+                    </View>
 
-                <View style={styles.buttonsRow}> 
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Dizziness</Text>
+                    <View style={styles.buttonsRow}> 
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Dizziness</Text>
+                        </View>
+                            
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Lethargy</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.buttonsRow}> 
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Headache</Text>
+                        </View>
+                    
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Dry Mouth</Text>
+                        </View>
+                    </View>
+                    
+                </View>
             </View>
-                
-
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Lethargy</Text>
-                </View>
-                </View>
-
-                <View style={styles.buttonsRow}> 
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Headache</Text>
-            </View>
-                
-
-                <View style={styles.buttonContainer}>
-                    <Text style={styles.buttonText} onPress={buttonPress} color={isActive ? "white" : "grey"}>Dry Mouth</Text>
-                </View>
-                </View>
-
-                <TextInput
-                style={styles.containerText}
-                multiline
-                placeholder="Anything else?"
-                value={symtpomInput}
-                onChangeText={text => setFeedback(text)}
-            />
-
-        </View>
-        
-
-        </>
+        </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     moodImg:{
-        width:350,
-        height:250,
+        width: 350,
+        height: 250,
         resizeMode: "contain"
     },
     containerTop:{
-        flex:1,
+        flex: 1,
         alignItems: 'center',
     },
     containerMiddle:{
-        flex:2,
-        paddingTop: 170,
-        paddingLeft: 5
+        flex: 1,
+        marginTop: 170,
     },
     containerBottom:{
-        flex: 3,
-        justifyContent: 'flex-start',
+        flex: 4,
         alignItems: 'center',
-        padding: 8, 
-        
     },
     containerText:{
-        flex:4,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        height: 120,
-        width: '100%',
+        width: 300,
         borderColor: 'gray',
         borderWidth: 1,
-        padding: 8,
+        padding: 10,
+        borderRadius: 10,
+        maxHeight: 60
     },
     buttonsRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '75%'
+        justifyContent: 'center',
+        width: '90%',
     },
     buttonContainer: {
         alignItems: 'center',
         marginTop: 45,
+        flex: 1
     },
     buttonText: {
-        fontSize: 12
+        fontSize: 14
     }
 });
 

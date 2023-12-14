@@ -185,8 +185,8 @@ async function registerForPushNotificationsAsync() {
     }
 
     // Get the Expo Push Token for testing purposes
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
+    // token = (await Notifications.getExpoPushTokenAsync()).data;
+    // console.log(token);
   } else {
 
     // Show alert if not running on physical device (Expo Go Tool does not work for emulators)
