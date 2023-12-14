@@ -115,6 +115,11 @@ function HomeScreen({ navigation, route }) {
     }
   };
 
+  //Attempt to change username starts here
+  const handleNewUsername = () => {
+    //navigation.navigate('');
+  };
+
   return (
     // Handles keyboard taps outside of screen to remove it
     <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
