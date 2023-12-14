@@ -32,57 +32,63 @@ function CaregiverInfoScreen(props) {
   ]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Schedule a Reminder for Your Patient</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Schedule a Reminder for Your Patient</Text>
 
-      <TextInput
-        style={styles.input}
-        multiline
-        placeholder="Type your message here!"
-        value={caregiverMessage}
-        onChangeText={(text) => setCaregiverMessage(text)}
-      />
+        <TextInput
+          style={styles.input}
+          multiline
+          placeholder="Type your message here!"
+          value={caregiverMessage}
+          onChangeText={(text) => setCaregiverMessage(text)}
+        />
 
-      <View style={styles.row}>
-        <DropDownPicker
-          open={openHour}
-          value={hourToSend}
-          items={hours}
-          setOpen={setOpenHour}
-          setValue={setHourToSend}
-          setItems={setHours}
-          placeholder={'Hour'}
-          containerStyle={styles.pickerContainer}
-          style={styles.pickerStyle}
-        />
-        <DropDownPicker
-          open={openMinute}
-          value={minuteToSend}
-          items={minutes}
-          setOpen={setOpenMinute}
-          setValue={setMinuteToSend}
-          setItems={setMinutes}
-          placeholder={'Minute'}
-          containerStyle={styles.pickerContainer}
-          style={styles.pickerStyle}
-        />
-        <DropDownPicker
-          open={openAmPm}
-          value={amPm}
-          items={amPmOptions}
-          setOpen={setOpenAmPm}
-          setValue={setAmPm}
-          setItems={setAmPmOptions}
-          placeholder={''}
-          containerStyle={styles.pickerContainer}
-          style={styles.pickerStyle}
-        />
+        <View style={styles.row}>
+          <DropDownPicker
+            open={openHour}
+            value={hourToSend}
+            items={hours}
+            setOpen={setOpenHour}
+            setValue={setHourToSend}
+            setItems={setHours}
+            placeholder={'Hour'}
+            containerStyle={styles.pickerContainer}
+            style={styles.pickerStyle}
+          />
+          <DropDownPicker
+            open={openMinute}
+            value={minuteToSend}
+            items={minutes}
+            setOpen={setOpenMinute}
+            setValue={setMinuteToSend}
+            setItems={setMinutes}
+            placeholder={'Minute'}
+            containerStyle={styles.pickerContainer}
+            style={styles.pickerStyle}
+          />
+          <DropDownPicker
+            open={openAmPm}
+            value={amPm}
+            items={amPmOptions}
+            setOpen={setOpenAmPm}
+            setValue={setAmPm}
+            setItems={setAmPmOptions}
+            placeholder={''}
+            containerStyle={styles.pickerContainer}
+            style={styles.pickerStyle}
+          />
+        </View>
+
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor={Globals.buttonLight}
+          onPress={handleCaregiverMessage}
+        >
+          <Text style={styles.buttonText}>Schedule Reminder</Text>
+        </TouchableHighlight>
       </View>
-
-      <TouchableHighlight style={styles.button} underlayColor={Globals.buttonLight} onPress={handleCaregiverMessage}>
-        <Text style={styles.buttonText}>Send Message</Text>
-      </TouchableHighlight>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
