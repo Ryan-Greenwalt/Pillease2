@@ -18,6 +18,6 @@ export default Globals = {
     editButton: '#D9D9D9',
 
     // light red
-    deleteButton: '#EFD3D3'
+    deleteButton: '#e8a5a5'
 
 };
