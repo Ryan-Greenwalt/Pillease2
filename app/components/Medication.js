@@ -46,10 +46,18 @@ function Medication({ medInfo: { medName, dosageAmount, dosageUnit, hourToTake, 
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableHighlight style={styles.button} underlayColor={Globals.buttonLight} onPress={handleEditMed}>
+        <TouchableHighlight
+          style={styles.editButton}
+          underlayColor={Globals.buttonLight}
+          onPress={handleEditMed}
+        >
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} underlayColor={Globals.buttonLight} onPress={handleDeleteMed}>
+        <TouchableHighlight
+          style={styles.deleteButton}
+          underlayColor={Globals.deleteButton}
+          onPress={handleDeleteMed}
+        >
           <Text style={styles.buttonText}>Delete</Text>
         </TouchableHighlight>
       </View>
@@ -80,12 +88,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'space-between',
     width: '75%',
-    marginBottom:10,
+    marginBottom: 10,
   },
-  button: {
+  editButton: {
     flex: 1,
     marginHorizontal: 5,
     backgroundColor: Globals.buttonLight,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteButton: {
+    flex: 1,
+    marginHorizontal: 5,
+    backgroundColor: Globals.deleteButton,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
@@ -127,7 +145,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 
