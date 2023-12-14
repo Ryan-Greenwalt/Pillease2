@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: 8
   },
   row: {
     flexDirection: 'row',
