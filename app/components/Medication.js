@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     height: 34,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: '100%',
+    borderRadius: 50,
     borderWidth: 3,
     borderColor: Globals.buttonLight,
     backgroundColor: 'transparent',
