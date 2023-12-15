@@ -100,7 +100,7 @@ function CaregiverInfoScreen(props) {
               setOpen={setOpenAmPm}
               setValue={setAmPm}
               setItems={setAmPmOptions}
-              placeholder={''}
+              placeholder={'am/pm'}
               containerStyle={{ marginBottom: openHour || openMinute || openAmPm ? 100 : 15 }}
               maxHeight={100}
               style={styles.pickerStyle}

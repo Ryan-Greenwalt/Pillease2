@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableHighlight, Alert} from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableHighlight, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Globals from '../components/Globals';
 
 //<Image source={require('../assets/WIP.png')} style={styles.image} /> If anyone would like to throw this back in
@@ -25,47 +25,49 @@ function HealthProfileScreen({ navigation }) {
   const [primaryConcerns, setPrimaryConcerns] = useState('');
   const [comments, setComments] = useState('');
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Build a unique Health Profile:</Text>
+
+        <TextInput
+            style={styles.inputField}
+            textAlign={'center'}
+            placeholder="Name"
+            value={userName}
+            onChangeText={setUserName}
+          />
+
+        <TextInput
+            style={styles.inputField}
+            textAlign={'center'}
+            placeholder="Age"
+            value={age}
+            onChangeText={setAge}
+          />
+
+        <TextInput
+            style={styles.inputField}
+            textAlign={'center'}
+            placeholder="Primary health concerns"
+            value={primaryConcerns}
+            onChangeText={setPrimaryConcerns}
+          />
+
+        <TextInput
+            style={styles.inputField}
+            textAlign={'center'}
+            placeholder="Other comments/concerns"
+            value={comments}
+            onChangeText={setComments}
+          />
+
+          <TouchableHighlight style={styles.button} underlayColor="#DDDDDD" onPress={handleConfirm}>
+            <Text style={styles.buttonText}>Confirm Changes</Text>
+          </TouchableHighlight>
+
+      </View>
+    </TouchableWithoutFeedback>
     
-    <View style={styles.container}>
-      <Text style={styles.heading}>Build a unique Health Profile:</Text>
-
-      <TextInput
-          style={styles.inputField}
-          textAlign={'center'}
-          placeholder="Name"
-          value={userName}
-          onChangeText={setUserName}
-        />
-
-      <TextInput
-          style={styles.inputField}
-          textAlign={'center'}
-          placeholder="Age"
-          value={age}
-          onChangeText={setAge}
-        />
-
-      <TextInput
-          style={styles.inputField}
-          textAlign={'center'}
-          placeholder="Primary health concerns"
-          value={primaryConcerns}
-          onChangeText={setPrimaryConcerns}
-        />
-
-      <TextInput
-          style={styles.inputField}
-          textAlign={'center'}
-          placeholder="Other comments/concerns"
-          value={comments}
-          onChangeText={setComments}
-        />
-
-        <TouchableHighlight style={styles.button} underlayColor="#DDDDDD" onPress={handleConfirm}>
-          <Text style={styles.buttonText}>Confirm Changes</Text>
-        </TouchableHighlight>
-
-    </View>
   );
 }
 
