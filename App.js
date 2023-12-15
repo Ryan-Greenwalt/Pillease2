@@ -66,39 +66,6 @@ export default function App() {
     };
   }, []);
 
-  // Render Notification Tester + Bottom Tab Navigator
-//   return (
-//     <NavigationContainer>
-//       <NavBar.Navigator
-//         screenOptions={({ route }) => ({
-//           tabBarLabel: route.name,
-//           headerShown: false,
-//           tabBarIcon: ({ focused, color, size }) => {
-
-//           },
-//         })}
-//       >
-
-
-//         <NavBar.Screen name="Home">
-//           {() => (
-//             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
-//               <Button
-//                 title="Press to schedule a notification"
-//                 onPress={async () => {
-//                   await schedulePushNotification();
-//                 }}
-//               />
-//             </View>
-//           )}
-//         </NavBar.Screen>
-
-//         <NavBar.Screen name="Mood Log" component={MoodLogStackScreen} />
-//         <NavBar.Screen name="Settings" component={SettingsStackScreen} />
-//       </NavBar.Navigator>
-//     </NavigationContainer>
-//   );
-// }
   return (
     <NavigationContainer>
       <NavBar.Navigator
