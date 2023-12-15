@@ -1,6 +1,6 @@
 # Pillease - Medication Management App for Neurodivergent Individuals
 
-Pillease is an accessible Android app designed to help individuals with Autism and other neurodivergent disorders manage their medication effectively. This project was created as part of the CSCI436: Technology for Social Good course at Western Washington University by the collaborative efforts of Maddie Knappenberger, Takira Boltman, Kiel Selapack, and Ryan Greenwalt.
+Pillease is an accessible Android and iOS app designed to help individuals with Autism and other neurodivergent disorders manage their medication effectively. This project was created as part of the CSCI436: Technology for Social Good course at Western Washington University by the collaborative efforts of Maddie Knappenberger, Takira Boltman, Kiel Selapack, and Ryan Greenwalt.
 
 ## Table of Contents
 - [Introduction](#pillease---medication-management-app-for-neurodivergent-individuals)
@@ -20,14 +20,46 @@ Pillease is an accessible Android app designed to help individuals with Autism a
   - [Medication Management Page](#medication-management-page)
 ## How to Use
 
-If you would like to test or simply try Pillease, you can run the app locally on your machine by following these steps:
+If you would like to test or simply try Pillease, you can run the app locally using your pc and mobile phone by following these steps:
 
 1. **Clone the Repository**: Open a terminal or command prompt and navigate to the directory where you want to store the project. Clone the repository using the following command:
 
    ```bash
-   git clone https://github.com/MadelineKnappenberger/Pillease.git
+   git clone https://github.com/Ryan-Greenwalt/Pillease2.git
    
-To run Pillease, open the project in Android Studio and use the "Pixel_3a_API_34_extension_level_7_x86_64" emulator to emulate the app.
+2. **On your Mobile Device**
+   Install Expo Go from your device's app store and create an account
+
+3. **On your PC**
+   npm install -g expo-cli (this allows us to use "expo" in commands)
+  expo install expo-device
+  expo install expo-constants
+   expo install expo-notifications
+  expo install expo-image-picker
+  npm install react-native-vector-images
+  npm install react-native-dropdown-picker
+
+If things are still giving you trouble, you might need to build with
+EAS. I will include the eas.JSON in my push, but not sure if it will
+configure with just that. So here are the commands to get setup with
+EAS:
+npm install -g eas-cli
+eas login (this is your Expo Go Account)
+eas whoami (checks that you are indeed logged in)
+eas build (when you do this, it will ask for your login stuff) (doesn't
+matter if you don't have an Apple Dev account)
+Now the project will show up as an Android project in the Expo Go Dev
+Tools
+
+**How to Run**:
+In terminal: npx expo start
+
+**On Apple Devices**: Once the app is running, scan the QR code with your phone's camera.
+It will take you to Expo Go running the app. Enjoy!
+
+**On Android Devices**: Open Expo Go, and choose “Scan QR Code”, and
+scan QR code with your mobile device’s camera to run the app on your
+smartphone. Enjoy!
 
 ## Features
 
